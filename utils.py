@@ -1,6 +1,6 @@
 import requests
 import os
-from PyPDF2 import PdfMerger
+from pypdf import PdfWriter
 
 def export_google_sheet_to_pdf(spreadsheet_id, output_dir, include_sheets=None, exclude_sheets=None):
     """Export specific sheets from a Google Sheets document as individual PDFs, then merge them into one."""
@@ -57,7 +57,7 @@ def export_google_sheet_to_pdf(spreadsheet_id, output_dir, include_sheets=None, 
 
 def merge_pdfs(pdf_paths, output_path):
     """Merge multiple PDF files into a single PDF."""
-    merger = PdfMerger()
+    merger = PdfWriter()
     for pdf_path in pdf_paths:
         merger.append(pdf_path)
     merger.write(output_path)
@@ -67,8 +67,17 @@ def merge_pdfs(pdf_paths, output_path):
 
 def save(spreadsheet_id, output_dir, include_sheets, exclude_sheets, output_path):   
     output_files = export_google_sheet_to_pdf(spreadsheet_id, output_dir, include_sheets, exclude_sheets)
+    
     if output_files:
-        merge_pdfs(output_files, output_path)
+        # Merge PDFs
+        if include_sheets or exclude_sheets:
+            merge_pdfs(output_files, output_path)
+        else:
+            # Rename the first file (single)
+            output_file = output_files[0]
+            if output_file:
+                os.rename(output_file, output_path)
+                print(f"Successfully saved {output_path}")
     
     # Clean up individual files
     for file_path in output_files:

@@ -27,6 +27,12 @@ https://docs.google.com/spreadsheets/d/Your-Google-Sheet-ID/edit
 In the access settings, you must specify at **least** "Everyone who has the link" -> **Read**
 
 
+## Python Usage
+```bash
+pip install -r requirements.txt 
+python main.py 
+```
+
 ## Docker Usage
 
 ```bash 
