@@ -28,6 +28,7 @@ In the access settings, you must specify at **least** "Everyone who has the link
 
 
 ## Python Usage
+
 ```bash
 pip install -r requirements.txt 
 python main.py 
@@ -43,7 +44,7 @@ docker run -d \
 --name save_sheets gs2p
 ```
 
-### Get file by HTTP
+## Get file by HTTP
 ```bash
 curl --output output.pdf "http://your-host:8080/files/output.pdf"
 ```
